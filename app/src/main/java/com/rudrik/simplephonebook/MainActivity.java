@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fab_add){
+        if (v.getId() == R.id.fab_add) {
             Intent i = new Intent(this, AddPersonActivity.class);
             startActivity(i);
         }
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
 //                        if (adpt == null){
-                            setAdapter(myPeople);
+                        setAdapter(myPeople);
 //                        }
 //
 //                        if (!myPeople.isEmpty()) {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void setAdapter(List<Person> list){
+    private void setAdapter(List<Person> list) {
         adpt = new AdptPersons(this, list);
         recyclerPersons.setHasFixedSize(true);
         recyclerPersons.setLayoutManager(new LinearLayoutManager(this));
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //  DELETE PERSON
-    private void deletePerson(final Person person){
+    private void deletePerson(final Person person) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -144,20 +144,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             List<Person> list = new ArrayList<>();
             for (Person p : myPeople) {
                 if (p.getFirstName().startsWith(s.toString()) ||
-                p.getLastName().startsWith(s.toString()) ||
-                p.getAddr().startsWith(s.toString()) ||
-                p.getPhone().startsWith(s.toString())){
+                        p.getLastName().startsWith(s.toString()) ||
+                        p.getAddr().startsWith(s.toString()) ||
+                        p.getPhone().startsWith(s.toString())) {
                     list.add(p);
                 }
             }
 
-            if (!list.isEmpty()){
-                setAdapter(list);
-            }
+
+            setAdapter(list);
+
 
             edtSearch.addTextChangedListener(this);
 
-        }else{
+        } else {
             edtSearch.removeTextChangedListener(this);
 
             System.out.println(s);

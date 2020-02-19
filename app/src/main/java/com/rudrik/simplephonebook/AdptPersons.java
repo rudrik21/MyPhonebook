@@ -108,10 +108,9 @@ public class AdptPersons extends SwipeAdapter {
             if (direction == 1) {
                 //  edit
                 refreshData();
-//                Intent i = new Intent(context, MapsActivity.class);
-//                String strPlace = new Gson().toJson(myPlaces.get(position));
-//                i.putExtra("PLACE", strPlace);
-//                context.startActivity(i);
+                Intent i = new Intent(context, AddPersonActivity.class);
+                i.putExtra("PERSON", list.get(position));
+                context.startActivity(i);
 
 
             }

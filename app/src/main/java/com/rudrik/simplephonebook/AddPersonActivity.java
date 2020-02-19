@@ -22,6 +22,8 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
     private PersonDatabase db;
     private Executor bg, main;
 
+    private Person person;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,9 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void init() {
+        person = (Person) getIntent().getSerializableExtra("PERSON");
+        System.out.println(person);
+
         tvTitleAddMember = (TextView) findViewById(R.id.tvTitleAddMember);
         edtFname = (EditText) findViewById(R.id.edtFname);
         edtLname = (EditText) findViewById(R.id.edtLname);
@@ -44,16 +49,18 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
         btnAddPerson = (Button) findViewById(R.id.btnAddPerson);
         btnAddPerson.setOnClickListener(this);
 
-//        loadData();
+        loadData();
     }
 
     private void loadData() {
-        bg.execute(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
+        if (person != null){
+            tvTitleAddMember.setText("Edit details");
+            edtFname.setText(person.getFirstName());
+            edtLname.setText(person.getLastName());
+            edtPhone.setText(person.getPhone());
+            edtAddr.setText(person.getPhone());
+            btnAddPerson.setText("Update Person");
+        }
     }
 
     private Person validateData(){
@@ -92,14 +99,30 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    private void updatePerson(final Person person){
+        bg.execute(new Runnable() {
+            @Override
+            public void run() {
+                db.personDao().updatePerson(person);
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnAddPerson){
+        if (v.getId() == R.id.btnAddPerson) {
             Person p = validateData();
-            if (p != null) {
-                insertPerson(p);
-                this.finish();
+            if (person == null) {
+                if (p != null) {
+                    insertPerson(p);
+                    this.finish();
+                }
+            } else {
+                if (p != null) {
+                    p.setId(person.getId());
+                    updatePerson(p);
+                    this.finish();
+                }
             }
         }
     }
