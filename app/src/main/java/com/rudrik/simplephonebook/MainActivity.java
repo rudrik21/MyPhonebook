@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bg.execute(new Runnable() {
             @Override
             public void run() {
+
+                //  CUSTOM DATA
+//                List<Person> cList = db.personDao().findPerson("R");
+//                Log.e("CUSTOM SEARCH", cList.toString());
+
                 myPeople = db.personDao().getPersonList();
                 System.out.println(myPeople.toString());
 

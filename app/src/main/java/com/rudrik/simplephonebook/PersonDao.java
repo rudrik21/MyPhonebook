@@ -15,17 +15,9 @@ public interface PersonDao {
     @Query("select * from person")
     List<Person> getPersonList();
 
-    /*
-    @Query("SELECT * " +
-            "FROM person " +
-            "WHERE firstname||lastname||phone||address like '% :r'")
+//    @Query("select * from person where firstname like '% -:search %'")
+//    List<Person> findPerson(String search);
 
-
-    @Query("SELECT * " +
-            "FROM person " +
-            "WHERE firstname like '% :search'")
-    List<Person> getFilteredPerson(String search);
-    */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPerson(Person person);

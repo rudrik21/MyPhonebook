@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.concurrent.Executor;
 
+import static com.rudrik.simplephonebook.Person.myPeople;
+
 public class AddPersonActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvTitleAddMember;
@@ -33,6 +35,8 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
 
         bg = AppExecutors.getInstance().diskIO();
         main = AppExecutors.getInstance().mainThread();
+
+        getSupportActionBar().setTitle("All Contacts ("+myPeople.size()+")");
 
         init();
     }
@@ -58,7 +62,7 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
             edtFname.setText(person.getFirstName());
             edtLname.setText(person.getLastName());
             edtPhone.setText(person.getPhone());
-            edtAddr.setText(person.getPhone());
+            edtAddr.setText(person.getAddr());
             btnAddPerson.setText("Update Person");
         }
     }
@@ -67,8 +71,8 @@ public class AddPersonActivity extends AppCompatActivity implements View.OnClick
         Person p = new Person(
                 edtFname.getText().toString(),
                 edtLname.getText().toString(),
-                edtAddr.getText().toString(),
-                edtPhone.getText().toString()
+                edtPhone.getText().toString(),
+                edtAddr.getText().toString()
         );
 
         if (p.getFirstName().isEmpty()){
